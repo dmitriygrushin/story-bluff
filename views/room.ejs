@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %> 
+<h1 class="text-center display-1">----- Story Bluff -----</h1> 
+<div class="container border border-3 border-primary rounded-3">
+    <div class="row">
+        <div class="col-sm-3 border-end border-3 border-primary rounded-3">
+            <div>
+                <h2 class="text-center">[<u>Users</u>]</h2>
+                <ul id="user-list"></ul>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="rate-buttons">
+                <div class="row">
+                    <h2 class="text-center">-------------------- Point(s)  --------------------</h2>
+                    <div class="col-sm"><button id="1" class="rate-button btn btn-primary w-100 h-100" style="background-color:green">1</button></div>
+                    <div class="col-sm"><button id="2"class="rate-button btn btn-primary w-100 h-100" style="background-color:lightgreen">2</button></div>
+                    <div class="col-sm"><button id="3" class="rate-button btn btn-primary w-100 h-100" style="background-color:palegreen">3</button></div>
+                    <div class="col-sm"><button id="4" class="rate-button btn btn-primary w-100 h-100" style="background-color:orange">4</button></div>
+                    <div class="col-sm"><button id="5" class="rate-button btn btn-primary w-100 h-100" style="background-color:coral">5</button></div>
+                    <div class="col-sm"><button id="6" class="rate-button btn btn-primary w-100 h-100" style="background-color:tomato">6</button></div>
+                    <div class="col-sm"><button id="7" class="rate-button btn btn-primary w-100 h-100" style="background-color:orangered">7</button></div>
+                    <div class="col-sm"><button id="8" class="rate-button btn btn-primary w-100 h-100" style="background-color:crimson">8</button></div>
+                    <div class="col-sm"><button id="9" class="rate-button btn btn-primary w-100 h-100" style="background-color:firebrick">9</button></div>
+                    <div class="col-sm"><button id="10" class="rate-button btn btn-primary btn-lg w-100 h-100" style="background-color:darkred">10</button></div>
+                </div>
+                <div class="row m-5">
+                    <div class="col-sm"><button id="15" class="rate-button btn btn-primary w-100 h-100" style="background-color:lavender">15</button></div>
+                    <div class="col-sm"><button id="20"class="rate-button btn btn-primary w-100 h-100" style="background-color: thistle">20</button></div>
+                    <div class="col-sm"><button id="25" class="rate-button btn btn-primary w-100 h-100" style="background-color:plum">25</button></div>
+                    <div class="col-sm"><button id="30" class="rate-button btn btn-primary w-100 h-100" style="background-color:violet">30</button></div>
+                    <div class="col-sm"><button id="40" class="rate-button btn btn-primary w-100 h-100" style="background-color:orchid">40</button></div>
+                    <div class="col-sm"><button id="50" class="rate-button btn btn-primary w-100 h-100" style="background-color:fuchsia">50</button></div>
+                    <div class="col-sm"><button id="60" class="rate-button btn btn-primary w-100 h-100" style="background-color:magenta">60</button></div>
+                    <div class="col-sm"><button id="75" class="rate-button btn btn-primary w-100 h-100" style="background-color:mediumpurple">75</button></div>
+                    <div class="col-sm"><button id="90" class="rate-button btn btn-primary w-100 h-100" style="background-color:purple">90</button></div>
+                    <div class="col-sm"><button id="100" class="rate-button btn btn-primary w-100 h-100" style="background-color:indigo">100</button></div>
+                </div>
+                <!--?php if (isset($_GET['moderator'])) { ?>
+                    <div class="text-center">
+                        <input class="btn btn-primary" id="copy-link-button" type="submit" value="Copy Invite Link!"> 
+                    </div>
+                <?php } ?-->
+                    
+                <h2 class="text-center">---------------------------------------------------</h2>
+            </div>
+            <div class="container">
+                <div class="text-center">
+                    <canvas id="myCanvas" width="350" height="350"></canvas>
+                </div>
+                <div class="text-center">
+                    <form action="" method="GET" id="evaluate-new-rating"> 
+                        <input class="btn btn-danger btn-lg w-75 shadow-lg" type="submit" value="Call Another Bluff!"> 
+                    </form>
+
+                    <form action="" method="GET" id="evaluate-ratings-form"> 
+                        <input class="btn btn-info btn-lg w-75 shadow-lg" type="submit" value="Call the Bluff!"> 
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
