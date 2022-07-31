@@ -1,4 +1,5 @@
 module.exports.view = (req, res) => {
     const roomId = req.params.id;
-    res.render('room', { roomId });
+    const username = req.session.username;
+    res.render('room', { roomId, username });
 }
