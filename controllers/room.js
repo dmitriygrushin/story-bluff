@@ -1,3 +1,4 @@
 module.exports.view = (req, res) => {
-    res.render('room');
+    const roomId = req.params.id;
+    res.render('room', { roomId });
 }

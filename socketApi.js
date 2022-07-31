@@ -4,18 +4,22 @@ var socketApi = {};
 
 socketApi.io = io;
 
-io.on('connection', function(socket){
+io.on('connection', (socket) => {
     console.log('A user connected');
+    socket.on('join-room', async (roomId) => {
 
-    socket.on('message', function(msg){
-        console.log(msg);
-        io.emit('message', msg);
-    })
+        console.log('a client is connected')
+        socket.join(roomId); 
+
+        // on message from client send to all clients in the room
+        socket.on('message', function(msg){
+            console.log(msg);
+            io.to(roomId).emit('message', msg);
+        })
+
+
+    });
 
 });
-
-socketApi.sendNotification = function() {
-    io.sockets.emit('message', {msg: 'Hello World!'});
-}
 
 module.exports = socketApi;
