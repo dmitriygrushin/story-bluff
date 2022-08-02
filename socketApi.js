@@ -11,16 +11,17 @@ io.on('connection', (socket) => {
         socket.join(roomId); 
         socket.data.user = {'username': username, 'rating': 0}; // initial user data. rating = 0 by default 
 
-        updateUserList(io, roomId);
+        await updateUserList(io, roomId);
 
-        socket.on('update-rating', (rating) => {
+        socket.on('update-rating', async (rating) => {
             socket.data.user = {'username': username, 'rating': rating};
-            updateUserList(io, roomId);
+            console.log("socket.data: " + socket.data);
+            await updateUserList(io, roomId);
         });
 
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async () => {
             io.to(roomId).emit('user-disconnected', socket.id);
-            updateUserList(io, roomId);
+            await updateUserList(io, roomId);
         });
 
 
