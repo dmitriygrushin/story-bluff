@@ -5,7 +5,6 @@ let socketApi = {};
 socketApi.io = io;
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
     socket.on('join-room', async (roomId, username) => {
         /** Initial Connection */
         socket.join(roomId); 
@@ -15,7 +14,6 @@ io.on('connection', (socket) => {
 
         socket.on('update-rating', async (rating) => {
             socket.data.user = {'username': username, 'rating': rating};
-            console.log("socket.data: " + socket.data);
             await updateUserList(io, roomId);
         });
 
@@ -23,8 +21,6 @@ io.on('connection', (socket) => {
             io.to(roomId).emit('user-disconnected', socket.id);
             await updateUserList(io, roomId);
         });
-
-
     });
 });
 
