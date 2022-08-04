@@ -1,7 +1,9 @@
 const socket = io();
 const ratingButtons = document.getElementsByClassName('rate-button');
+const initialRatingButton = document.getElementById('evaluate-ratings-button');
 const userListTag = document.getElementById('user-list');
 const colors = ['purple', 'indianred', 'green', 'mediumpurple', 'orchid', 'lavender', 'maroon', 'indigo', 'magenta', 'olive', 'blue', 'teal', 'gray', 'purple', 'black', 'fuchsia', 'plum', 'thistle', 'violet', 'navy'];
+const copyLinkButton = document.getElementById('copy-link-button'); // copy-link-button
 
 let myUserList;
 let HoverPie = {};
@@ -151,6 +153,18 @@ socket.on('user-list', (userList) => {
     }
 });
 
+initialRatingButton.addEventListener('click', () => {
+    showRatingResult();
+});
+
+copyLinkButton.addEventListener('click', (e) => {
+    console.log('copy link');
+    e.preventDefault();
+    const url = window.location.href;
+    navigator.clipboard.writeText(`${url}`);
+
+
+})
 
 // set onclick listener for all rating-buttons class
 for (let i = 0; i < ratingButtons.length; i++) {
@@ -191,6 +205,7 @@ function showRatingResult() {
 
     HoverPie.make($("#myCanvas"), data, {});
 }
+
 
 function createDataObject(percentage, fillColor, label) {
     return {
