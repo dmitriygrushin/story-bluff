@@ -20,7 +20,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 //app.use(cookieParser());
-app.use(session({ secret: 'whatchunowboutbacon', resave: false, saveUninitialized: true, cookie: { maxAge: 60000 } }));
+app.use(session({ 
+    secret: 'whatchunowboutbacon', 
+    resave: false, 
+    saveUninitialized: false,
+    cookie: { maxAge: 3600000 } 
+}));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

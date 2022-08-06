@@ -157,14 +157,17 @@ initialRatingButton.addEventListener('click', () => {
     showRatingResult();
 });
 
-copyLinkButton.addEventListener('click', (e) => {
-    console.log('copy link');
-    e.preventDefault();
-    const url = window.location.href;
-    navigator.clipboard.writeText(`${url}`);
+// only moderator can see the copyLinkButton
+if (copyLinkButton) {
+    copyLinkButton.addEventListener('click', (e) => {
+        console.log('copy link');
+        e.preventDefault();
+        const url = window.location.href;
+        navigator.clipboard.writeText(`${url}`);
+    });
+}
 
 
-})
 
 // set onclick listener for all rating-buttons class
 for (let i = 0; i < ratingButtons.length; i++) {

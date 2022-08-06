@@ -12,6 +12,7 @@ module.exports.joinRoom = (req, res) => {
         if (err) next(err);
         req.session.username = username;
         req.session.isModerator = false;
+        req.session.roomId = id;
         req.session.save((err) => {
             if (err) return next(err);
             res.redirect(`/${id}`);

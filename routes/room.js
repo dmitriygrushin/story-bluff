@@ -9,7 +9,7 @@ router.post('/:id', room.joinRoom);
 // checks if the user has a name registered in the session
 function hasName (req, res, next) {
   const { id } = req.params;
-  if (req.session.username) return next();
+  if (req.session.username && req.session.roomId == id) return next();
   return res.render('index', { isJoining: true, roomId: id });
 }
 
