@@ -1,9 +1,11 @@
 const socket = io();
 const ratingButtons = document.getElementsByClassName('rate-button');
 const initialRatingButton = document.getElementById('evaluate-ratings-button');
+const refreshRatingButton = document.getElementById('evaluate-again-button');
 const userListTag = document.getElementById('user-list');
 const colors = ['purple', 'indianred', 'green', 'mediumpurple', 'orchid', 'lavender', 'maroon', 'indigo', 'magenta', 'olive', 'blue', 'teal', 'gray', 'purple', 'black', 'fuchsia', 'plum', 'thistle', 'violet', 'navy'];
 const copyLinkButton = document.getElementById('copy-link-button'); // copy-link-button
+const myCanvas = document.getElementById('myCanvas');
 
 let myUserList;
 let HoverPie = {};
@@ -153,9 +155,27 @@ socket.on('user-list', (userList) => {
     }
 });
 
-initialRatingButton.addEventListener('click', () => {
+socket.on('refresh-ratings', () => {
+    myCanvas.style.visibility = 'hidden';
+});
+
+socket.on('show-rating', () => {
     showRatingResult();
 });
+
+if (initialRatingButton && refreshRatingButton) {
+    refreshRatingButton.style.display = 'none';
+    initialRatingButton.addEventListener('click', () => {
+        socket.emit('show-rating');
+        showRatingResult();
+    });
+
+    refreshRatingButton.addEventListener('click', () => {
+        refreshRatings()
+        initialRatingButton.style.display = 'block';
+        refreshRatingButton.style.display = 'none';
+    });
+}
 
 // only moderator can see the copyLinkButton
 if (copyLinkButton) {
@@ -176,11 +196,14 @@ for (let i = 0; i < ratingButtons.length; i++) {
     });
 }
 
-function showRatingResult() {
-    /**
-     * Pie chart works but need to work on the user list. It doesn't show user names after they rate
-     */
+function refreshRatings() {
+    socket.emit('refresh-ratings');
+    data = [];
+    myCanvas.style.visibility = 'hidden';
+}
 
+function showRatingResult() {
+    data = [];
     // store occurrence of each rating in a hashmap (key: rating, value: number of occurrences)
     let ratingOccurrenceMap = {};
     let totalOccurrences = 0;
@@ -206,7 +229,14 @@ function showRatingResult() {
 
     console.log('ratingOccurrenceMap: ', ratingOccurrenceMap);
 
-    HoverPie.make($("#myCanvas"), data, {});
+    if (data.length > 0) {
+        myCanvas.style.visibility = 'visible';
+        if (initialRatingButton && refreshRatingButton) {
+            initialRatingButton.style.display = 'none';
+            refreshRatingButton.style.display = 'block';
+        }
+        HoverPie.make($("#myCanvas"), data, {});
+    }
 }
 
 

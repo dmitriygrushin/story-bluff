@@ -17,12 +17,27 @@ io.on('connection', (socket) => {
             await updateUserList(io, roomId);
         });
 
+        socket.on('show-rating', () => {
+            io.to(roomId).emit('show-rating');
+        })
+
         socket.on('disconnect', async () => {
             io.to(roomId).emit('user-disconnected', socket.id);
             await updateUserList(io, roomId);
         });
+
+        socket.on('refresh-ratings', async () => {
+            io.to(roomId).emit('refresh-ratings', socket.id);
+            await refreshUserRatings(io, roomId);
+            await updateUserList(io, roomId);
+        });
     });
 });
+
+async function refreshUserRatings(io, roomId) {
+    let userList = await io.in(roomId).fetchSockets() 
+    userList.forEach(socket => { socket.data.user.rating = 0; });
+}
 
 /** Send updated user list to clients the room */
 async function updateUserList(io, roomId) {

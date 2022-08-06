@@ -54,8 +54,10 @@
                     <canvas id="myCanvas" width="350" height="350"></canvas>
                 </div>
                 <div class="text-center">
-                    <button id="evaluate-ratings-button" class="btn btn-primary btn-lg w-75 shadow-lg">Call Another Bluff</button>
-                    <!-- <button id="evaluate-again-button" class="btn btn-danger btn-lg w-75 shadow-lg">Call The Bluff!</button> -->
+                    <% if (isModerator) { %> 
+                        <button id="evaluate-ratings-button" class="btn btn-primary btn-lg w-75 shadow-lg">Call The Bluff</button>
+                        <button id="evaluate-again-button" class="btn btn-warning btn-lg w-75 shadow-lg">Call Another Bluff!</button>
+                    <% } %> 
                 </div>
             </div>
         </div>
