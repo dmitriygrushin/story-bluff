@@ -147,9 +147,10 @@ socket.on('user-list', (userList) => {
         let listItem = document.createElement('li');
         listItem.style.fontSize = '1.3em';
         if (user.rating == 0) {
-            listItem.innerHTML = `${user.username}: ✘`;
+            listItem.innerHTML = `${user.username}: ❌`;
         } else {
-            listItem.innerHTML = `${user.username}: ${user.rating}`;
+            //listItem.innerHTML = `${user.username}: ${user.rating}`;
+            listItem.innerHTML = `${user.username}: ✔️`;
         }
         userListTag.appendChild(listItem);
     }
@@ -161,6 +162,7 @@ socket.on('refresh-ratings', () => {
 
 socket.on('show-rating', () => {
     showRatingResult();
+    unhideResults();
 });
 
 if (initialRatingButton && refreshRatingButton) {
@@ -194,6 +196,22 @@ for (let i = 0; i < ratingButtons.length; i++) {
     ratingButtons[i].addEventListener('click', (e) => {
         socket.emit('update-rating', e.target.value);
     });
+}
+
+function unhideResults() {
+    userListTag.innerHTML = '';
+    // loop over userList hashmap and add each user to the userListTag
+    for (let userId in myUserList) {
+        let user = myUserList[userId];
+        let listItem = document.createElement('li');
+        listItem.style.fontSize = '1.3em';
+        if (user.rating == 0) {
+            listItem.innerHTML = `${user.username}: ❌`;
+        } else {
+            listItem.innerHTML = `${user.username}: ${user.rating}`;
+        }
+        userListTag.appendChild(listItem);
+    }
 }
 
 function refreshRatings() {
