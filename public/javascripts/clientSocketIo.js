@@ -158,6 +158,7 @@ socket.on('user-list', (userList) => {
 
 socket.on('refresh-ratings', () => {
     myCanvas.style.visibility = 'hidden';
+    enableRatingButtons();
 });
 
 socket.on('show-rating', () => {
@@ -253,6 +254,7 @@ function showRatingResult() {
             initialRatingButton.style.display = 'none';
             refreshRatingButton.style.display = 'block';
         }
+        disableRatingButtons();
         HoverPie.make($("#myCanvas"), data, {});
     }
 }
@@ -263,5 +265,17 @@ function createDataObject(percentage, fillColor, label) {
         percentage : percentage,
         fillColor : fillColor,
         label : label
+    }
+}
+
+function disableRatingButtons() {
+    for (let i = 0; i < ratingButtons.length; i++) {
+        ratingButtons[i].disabled = true;
+    }
+}
+
+function enableRatingButtons() {
+    for (let i = 0; i < ratingButtons.length; i++) {
+        ratingButtons[i].disabled = false;
     }
 }
